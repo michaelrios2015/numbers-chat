@@ -12,6 +12,7 @@
             const ul = document.querySelector('ul');
             const a = document.querySelector('a');
 
+            //post to websit
             a.addEventListener('click', async(ev)=> {
                 ev.preventDefault();
                 const response = await fetch('/', {
@@ -23,6 +24,7 @@
                 socket.send(JSON.stringify(message));
 
             })
+            // sends information back to the server??
             const url = window.document.location.origin.replace('http', 'ws');
             const socket = new WebSocket(url);
             socket.addEventListener('message', (ev)=> {
@@ -32,6 +34,9 @@
                         ul.innerHTML += `<li>${ _message.num }`;
                         // console.log(_message);        
                     });
+                }
+                else {
+                    ul.innerHTML += `<li>${ message.num }`;
                 }
                 
             });

@@ -35,9 +35,14 @@ webSocketServer.on('connection', (socket)=> {
     sockets.push(socket);
     socket.send(JSON.stringify({ history: numbers }));
     socket.on('message', (data)=> {
-        const message = JSON.parse(data);
-        console.log(message);
+        // const message = JSON.parse(data);
+        // console.log(message);
+        sockets.filter( s=> s !== socket).forEach( s => s.send(data));
     })
-    //socket.on('close', ())
+    //so I don't have unused sockets from 
+    socket.on('close', ()=> {
+        sockets = sockets.filter(s => s !== socket);
+        console.log('closing');
+    })
     //console.log('connecting');
 })
